@@ -21,7 +21,7 @@ export default function StartStudy({
           setter((prev) => prev - 1);
         } else {
           clearInterval(intervalID);
-          setter(() => -1);
+          setter((prev) => prev - 1);
           setStatus(0);
         }
       }
