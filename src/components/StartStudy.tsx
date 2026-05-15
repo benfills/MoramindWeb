@@ -1,11 +1,14 @@
 import { useState, useEffect, useRef } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 export default function StartStudy({
   setter,
   curstate,
+  onBack,
 }: {
   curstate: number;
-  setter: (fn: (prev: number) => number) => void;
+  setter: Dispatch<SetStateAction<number>>;
+  onBack: () => void;
 }) {
   const [status, setStatus] = useState(0);
   const curref = useRef(0);
@@ -21,11 +24,11 @@ export default function StartStudy({
           setter((prev) => prev - 1);
         } else {
           clearInterval(intervalID);
-          setter((prev) => prev - 1);
+          setter(-1);
           setStatus(0);
         }
       }
-    }, 1000);
+    }, 100);
     return () => clearInterval(intervalID);
   }, [status, setter]);
 
@@ -37,6 +40,12 @@ export default function StartStudy({
           "url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1200')",
       }}
     >
+      <button
+        onClick={onBack}
+        className="self-start mb-2 text-xs text-gray-400 hover:text-gray-600 transition-colors"
+      >
+        ← Back
+      </button>
       <div className="flex flex-col items-center w-full max-w-sm rounded-2xl bg-white/90 px-6 py-8 shadow-xl backdrop-blur">
         <p className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-500">
           Study Time
