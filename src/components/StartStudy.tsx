@@ -12,6 +12,13 @@ export default function StartStudy({
 }) {
   const [status, setStatus] = useState(0);
   const curref = useRef(0);
+  const formatTime = (secs: number) => {
+    const m = Math.floor(secs / 60)
+      .toString()
+      .padStart(2, "0");
+    const s = (secs % 60).toString().padStart(2, "0");
+    return `${m}:${s}`;
+  };
 
   useEffect(() => {
     curref.current = curstate;
@@ -28,7 +35,7 @@ export default function StartStudy({
           setStatus(0);
         }
       }
-    }, 100);
+    }, 1000);
     return () => clearInterval(intervalID);
   }, [status, setter]);
 
@@ -54,7 +61,7 @@ export default function StartStudy({
         {status === 0 ? (
           <div className="mb-8 flex flex-row items-center justify-center">
             <span className="mx-4 text-7xl font-black leading-none text-black">
-              {curstate}
+              {formatTime(curstate)}
             </span>
           </div>
         ) : (
@@ -65,7 +72,7 @@ export default function StartStudy({
               alt="cat"
             />
             <span className="mx-4 text-7xl font-black leading-none text-black">
-              {curstate}
+              {formatTime(curstate)}
             </span>
           </div>
         )}
@@ -89,14 +96,14 @@ export default function StartStudy({
           className="mb-2 h-12 w-full rounded-lg border border-blue-600 bg-transparent text-sm font-medium text-blue-600 hover:bg-blue-50 transition-colors"
           onClick={() => setter((prev) => prev + 60)}
         >
-          Increase Study Time by 60s
+          Increase Study Time by 1m
         </button>
 
         <button
           className="mb-2 h-12 w-full rounded-lg border border-blue-600 bg-transparent text-sm font-medium text-blue-600 hover:bg-blue-50 transition-colors"
           onClick={() => setter((prev) => prev + 120)}
         >
-          Increase Study Time by 120s
+          Increase Study Time by 2m
         </button>
       </div>
     </div>
