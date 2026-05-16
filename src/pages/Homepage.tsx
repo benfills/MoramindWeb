@@ -20,10 +20,6 @@ export default function Homepage({
         <h1 className="text-5xl font-black tracking-tight text-white">
           Moramind
         </h1>
-        <p className="mt-3 max-w-xs text-center text-sm text-gray-400">
-          A minimal Pomodoro timer to keep you in the zone — set your sessions,
-          start the clock.
-        </p>
       </div>
 
       {/* Settings card */}
