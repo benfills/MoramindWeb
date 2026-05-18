@@ -1,26 +1,33 @@
 import { useState } from "react";
-import Homepage from "./pages/Homepage";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import SetPomodoro from "./pages/Setpomodoro";
 import Mainpage from "./pages/Mainpage";
 import type { Settings } from "./types";
 
 export default function App() {
-  const [page, setPage] = useState<"home" | "timer">("home");
+  const navigate = useNavigate();
   const [settings, setSettings] = useState<Settings>({
     workMin: 25,
     shortBreakMin: 5,
     longBreakMin: 15,
   });
-
-  if (page === "home") {
-    return (
-      <Homepage
-        onStart={(s) => {
-          setSettings(s);
-          setPage("timer");
-        }}
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <SetPomodoro
+            onStart={(s) => {
+              setSettings(s);
+              navigate("/timer");
+            }}
+          />
+        }
       />
-    );
-  }
-
-  return <Mainpage settings={settings} onBack={() => setPage("home")} />;
+      <Route
+        path="/timer"
+        element={<Mainpage settings={settings} onBack={() => navigate("/")} />}
+      />
+    </Routes>
+  );
 }
