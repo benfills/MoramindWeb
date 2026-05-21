@@ -6,10 +6,9 @@ export default function SetPomodoro({
 }: {
   onStart: (s: Settings) => void;
 }) {
-  const [workMin, setWorkMin] = useState(25);
-  const [shortBreakMin, setShortBreakMin] = useState(5);
-  const [longBreakMin, setLongBreakMin] = useState(15);
-
+  const [workMin, setWorkMin] = useState(60);
+  const [shortBreakMin, setShortBreakMin] = useState(15);
+  const [longBreakMin, setLongBreakMin] = useState(120);
   return (
     <div className="flex flex-1 min-h-screen flex-col items-center justify-center bg-[#0e0f14] px-5 py-12">
       {/* Hero */}
@@ -32,37 +31,54 @@ export default function SetPomodoro({
           <SliderField
             label="Work duration"
             value={workMin}
-            min={1}
+            min={0}
             max={60}
-            step={1}
+            step={5}
             onChange={setWorkMin}
           />
           <SliderField
             label="Short break"
             value={shortBreakMin}
-            min={1}
-            max={15}
-            step={1}
+            min={0}
+            max={30}
+            step={5}
             onChange={setShortBreakMin}
           />
           <SliderField
             label="Long break"
             value={longBreakMin}
-            min={1}
+            min={0}
             max={120}
-            step={1}
+            step={5}
             onChange={setLongBreakMin}
           />
         </div>
-
-        <button
-          className="mt-7 h-12 w-full rounded-xl bg-[#aa3bff] text-sm font-bold text-white
+        {workMin > 0 ? (
+          <button
+            className="mt-7 h-12 w-full rounded-xl bg-[#aa3bff] text-sm font-bold text-white
                     shadow-[0_0_20px_rgba(170,59,255,0.45)]
                     hover:bg-[#9b2df0] hover:shadow-[0_0_30px_rgba(170,59,255,0.7)]
                     transition-all duration-200 cursor-pointer"
-          onClick={() => {onStart({ workMin, shortBreakMin, longBreakMin })}}>
-          Start Session →
-        </button>
+            onClick={() => {
+              onStart({ workMin, shortBreakMin, longBreakMin });
+            }}
+          >
+            Start Session →
+          </button>
+        ) : (
+          <button
+            className="mt-7 h-12 w-full rounded-xl bg-[#aa3bff] text-sm font-bold text-white
+                    shadow-[0_0_20px_rgba(170,59,255,0.45)]
+                    hover:bg-[#9b2df0] hover:shadow-[0_0_30px_rgba(170,59,255,0.7)]
+                    transition-all duration-200 cursor-pointer"
+            onClick={() => {
+              alert("Please Set Your Timer First");
+            }}
+          >
+            {" "}
+            Start Session →{" "}
+          </button>
+        )}
       </div>
     </div>
   );

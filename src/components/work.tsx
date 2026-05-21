@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
-export default function StartStudy({
+export default function Work({
   setter,
   curstate,
   onBack,
@@ -35,7 +35,7 @@ export default function StartStudy({
           setStatus(false);
         }
       }
-    }, 1000);
+    }, 100);
     return () => clearInterval(intervalID);
   }, [status, setter]);
 
@@ -76,8 +76,6 @@ export default function StartStudy({
           onClick={() => {
             if (status === false && curstate > 0) {
               setStatus(true);
-            } else if (status === false && curstate === 0) {
-              alert("Please Set Your Timer First");
             } else {
               setStatus(false);
             }
