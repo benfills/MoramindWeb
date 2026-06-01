@@ -35,7 +35,7 @@ export default function Work({
           setStatus(false);
         }
       }
-    }, 100);
+    }, 1000);
     return () => clearInterval(intervalID);
   }, [status, setter]);
 

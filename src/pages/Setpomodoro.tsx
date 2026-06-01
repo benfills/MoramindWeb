@@ -1,16 +1,28 @@
 import { useState } from "react";
 import type { Settings } from "../types";
+import { useAuth } from "../context/useAuth";
 
 export default function SetPomodoro({
   onStart,
 }: {
   onStart: (s: Settings) => void;
 }) {
-  const [workMin, setWorkMin] = useState(60);
-  const [shortBreakMin, setShortBreakMin] = useState(15);
-  const [longBreakMin, setLongBreakMin] = useState(120);
+  const { user, signOut } = useAuth();
+  const [workMin, setWorkMin] = useState(0);
+  const [shortBreakMin, setShortBreakMin] = useState(0);
+  const [longBreakMin, setLongBreakMin] = useState(0);
   return (
     <div className="flex flex-1 min-h-screen flex-col items-center justify-center bg-[#0e0f14] px-5 py-12">
+      <div className="absolute top-4 right-4 flex items-center gap-3">
+        <span className="text-xs text-gray-500">{user?.email}</span>
+        <button
+          onClick={() => signOut()}
+          className="text-xs text-gray-400 hover:text-white transition-colors"
+        >
+          Sign out
+        </button>
+      </div>
+
       {/* Hero */}
       <div className="mb-10 flex flex-col items-center">
         <span className="mb-4 inline-block rounded-full bg-[#aa3bff]/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#aa3bff]">
@@ -67,16 +79,16 @@ export default function SetPomodoro({
           </button>
         ) : (
           <button
-            className="mt-7 h-12 w-full rounded-xl bg-[#aa3bff] text-sm font-bold text-white
-                    shadow-[0_0_20px_rgba(170,59,255,0.45)]
-                    hover:bg-[#9b2df0] hover:shadow-[0_0_30px_rgba(170,59,255,0.7)]
+            className="mt-7 h-12 w-full rounded-xl bg-[#ef4444] text-sm font-bold text-white
+                    shadow-[0_0_20px_rgba(239,68,68,0.45)]
+                    hover:bg-[#dc2626] hover:shadow-[0_0_30px_rgba(239,68,68,0.7)]
                     transition-all duration-200 cursor-pointer"
             onClick={() => {
               alert("Please Set Your Timer First");
             }}
           >
             {" "}
-            Start Session →{" "}
+            Please set your timer{" "}
           </button>
         )}
       </div>
