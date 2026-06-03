@@ -8,9 +8,9 @@ export default function SetPomodoro({
   onStart: (s: Settings) => void;
 }) {
   const { user, signOut } = useAuth();
-  const [workMin, setWorkMin] = useState(0);
-  const [shortBreakMin, setShortBreakMin] = useState(0);
-  const [longBreakMin, setLongBreakMin] = useState(0);
+  const [workMin, setWorkMin] = useState(25);
+  const [shortBreakMin, setShortBreakMin] = useState(5);
+  const [longBreakMin, setLongBreakMin] = useState(15);
   return (
     <div className="flex flex-1 min-h-screen flex-col items-center justify-center bg-[#0e0f14] px-5 py-12">
       <div className="absolute top-4 right-4 flex items-center gap-3">
@@ -45,7 +45,7 @@ export default function SetPomodoro({
             value={workMin}
             min={0}
             max={60}
-            step={5}
+            step={1}
             onChange={setWorkMin}
           />
           <SliderField
